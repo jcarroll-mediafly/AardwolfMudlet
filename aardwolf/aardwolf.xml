@@ -2197,50 +2197,6 @@ end</script>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>HungerTracker</name>
-				<script>aard.hu = gmcp.char.status.hunger
-GUI.Gauges.Hunger:setValue(aard.hu, 100)
-</script>
-				<triggerType>0</triggerType>
-				<conditonLineDelta>0</conditonLineDelta>
-				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
-				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#000000</colorTriggerFgColor>
-				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList>
-					<string>^You are now full\.$</string>
-				</regexCodeList>
-				<regexCodePropertyList>
-					<integer>1</integer>
-				</regexCodePropertyList>
-			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>ThirstTracker</name>
-				<script>aard.thr = gmcp.char.status.thirst
-GUI.Gauges.Thirst:setValue(aard.thr, 100)
-</script>
-				<triggerType>0</triggerType>
-				<conditonLineDelta>0</conditonLineDelta>
-				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
-				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#000000</colorTriggerFgColor>
-				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList>
-					<string>^Your thirst is fully quenched\.$</string>
-				</regexCodeList>
-				<regexCodePropertyList>
-					<integer>1</integer>
-				</regexCodePropertyList>
-			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>healthPotionTracker</name>
 				<script>aard.hpot = tonumber(matches[2]) or 1
 GUI.Gauges.Health:setValue(aard.hp, aard.maxhp)
@@ -7918,7 +7874,7 @@ end</script>
 	aard.hp, aard.maxhp = gmcp.char.vitals.hp, gmcp.char.maxstats.maxhp
 	aard.mp, aard.maxmp = gmcp.char.vitals.mana, gmcp.char.maxstats.maxmana
 	aard.mv, aard.maxmv = gmcp.char.vitals.moves, gmcp.char.maxstats.maxmoves
-    aard.hu, aard.thr = gmcp.char.status.hunger, gmcp.char.status.thirst
+  aard.hu, aard.thr = gmcp.char.status.hunger, gmcp.char.status.thirst
 
 	local hp_pct = tostring(getPercent(aard.hp, aard.maxhp))
 	local mp_pct = tostring(getPercent(aard.mp, aard.maxmp))
@@ -7929,11 +7885,11 @@ end</script>
 	end
 
   -- echo("aard.gui.Health"..aard.gui.Health)
-    GUI.Gauges.Health:setValue(aard.hp, aard.maxhp)
+  GUI.Gauges.Health:setValue(aard.hp, aard.maxhp)
 	GUI.Gauges.Mana:setValue(aard.mp, aard.maxmp)
 	GUI.Gauges.Moves:setValue(aard.mv, aard.maxmv)
-    GUI.Gauges.Hunger:setValue(aard.hu, 100)
-    GUI.Gauges.Thirst:setValue(aard.thr, 100)
+  GUI.Gauges.Hunger:setValue(aard.hu, 100)
+  GUI.Gauges.Thirst:setValue(aard.thr, 100)
 
 	--update group values for my character from char.vitals because it updates faster than group info that is only every 2-3 seconds.
 	if aard.gindex ~= 0 then
@@ -7956,6 +7912,7 @@ end</script>
 					<eventHandlerList>
 						<string>gmcp.char.vitals</string>
 						<string>gmcp.char.maxstats</string>
+						<string>gmcp.char.status</string>
 					</eventHandlerList>
 				</Script>
 				<Script isActive="yes" isFolder="no">
