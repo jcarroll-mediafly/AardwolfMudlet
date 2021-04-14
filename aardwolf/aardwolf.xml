@@ -2243,8 +2243,7 @@ GUI.Gauges.Thirst:setValue(aard.thr, 100)
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>healthPotionTracker</name>
 				<script>aard.hpot = tonumber(matches[2]) or 1
-local hp_pct = tostring(getPercent(aard.hp, aard.maxhp))
-GUI.Gauges.Health:setValue(aard.hp, aard.maxhp,"&lt;br&gt;("..aard.hpot..") potions")
+GUI.Gauges.Health:setValue(aard.hp, aard.maxhp)
 
 -- Clan			lvl	Health (Heal)
 -- Masaki		201 -=Warm Sake=-
@@ -2291,8 +2290,7 @@ GUI.Gauges.Health:setValue(aard.hp, aard.maxhp,"&lt;br&gt;("..aard.hpot..") poti
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>manaPotionTracker</name>
 				<script>aard.spot = tonumber(matches[2]) or 1
-local mp_pct = tostring(getPercent(aard.mp, aard.maxmp))
-GUI.Gauges.Mana:setValue(aard.mp, aard.maxmp,"&lt;br&gt;("..aard.spot..") potions")
+GUI.Gauges.Mana:setValue(aard.mp, aard.maxmp)
 
 -- Clan			lvl	Mana (black lotus)
 -- Dominion	201 Moonlight Wine
@@ -2357,8 +2355,7 @@ GUI.Gauges.Mana:setValue(aard.mp, aard.maxmp,"&lt;br&gt;("..aard.spot..") potion
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>movePotionTracker</name>
 				<script>aard.mpot = tonumber(matches[2]) or 1
-local mv_pct = tostring(getPercent(aard.mv, aard.maxmv))
-GUI.Gauges.Moves:setValue(aard.mv, aard.maxmv,"&lt;br&gt;("..aard.mpot..") potions")
+GUI.Gauges.Moves:setValue(aard.mv, aard.maxmv)
 
 -- Clan			lvl	Moves (refresh)
 -- Daoine		150 FaetorAde
@@ -5496,7 +5493,7 @@ registerAnonymousEventHandler("sysWindowResizeEvent","GUIframe.eventHandler")</s
   gStyleW = '&lt;font style="color:#ffffff"&gt;'
   gStyleG = '&lt;font style="color:#1aa41a"&gt;'
 
-    GUI.Gauges.ToNextLevel:setValue(aard.tnlmax-aard.tnl, aard.tnlmax, "&lt;br&gt;Level: "..(aard.level or 0).." Quest: "..aard.qtime.." Blessing: "..aard.dtime)
+    GUI.Gauges.ToNextLevel:setValue(aard.tnlmax-aard.tnl, aard.tnlmax)
 end
 
 function guiLoad()
@@ -7932,9 +7929,9 @@ end</script>
 	end
 
   -- echo("aard.gui.Health"..aard.gui.Health)
-    GUI.Gauges.Health:setValue(aard.hp, aard.maxhp,"&lt;br&gt;("..aard.hpot..") potions")
-	GUI.Gauges.Mana:setValue(aard.mp, aard.maxmp,"&lt;br&gt;("..aard.spot..") potions")
-	GUI.Gauges.Moves:setValue(aard.mv, aard.maxmv,"&lt;br&gt;("..aard.mpot..") potions")
+    GUI.Gauges.Health:setValue(aard.hp, aard.maxhp)
+	GUI.Gauges.Mana:setValue(aard.mp, aard.maxmp)
+	GUI.Gauges.Moves:setValue(aard.mv, aard.maxmv)
     GUI.Gauges.Hunger:setValue(aard.hu, 100)
     GUI.Gauges.Thirst:setValue(aard.thr, 100)
 
@@ -8161,9 +8158,7 @@ function GUI.Gauge.new(args, container)
     mapValue = args.mapValue or function (self, value, maxValue)
       return value, maxValue
     end,
-    format = args.format or function (self, value, maxValue)
-      return self.name..": "..value.." / "..maxValue
-    end,
+    format = args.format,
     color = args.color
   }
   setmetatable(obj, GUI.Gauge)
@@ -8180,10 +8175,9 @@ function GUI.Gauge.new(args, container)
   return obj
 end
 
-function GUI.Gauge:setValue(value, maxValue, text)
-  local appending = text or ""
+function GUI.Gauge:setValue(value, maxValue)
   self.gauge:setValue(self:mapValue(value, maxValue))
-  label = self:format(value, maxValue) .. appending
+  label = self:format(value, maxValue)
   self.gauge.back:echo(label)
   self.gauge.front:echo(label)
   self.gauge.back:setFontSize(16)
@@ -8258,36 +8252,56 @@ if true or not GUI.Gauges then
   GUI.Gauges.Health = GUI.Gauge.new({
     name = "Health",
     unit = "hp",
+	format = function (self, value, maxValue)
+      return self.name..": "..value.." / "..maxValue.."&lt;br&gt;("..aard.hpot..") potions"
+    end,
     color = "QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "..aard.hpc1..", stop: 1 "..aard.hpc2..")"
   }, GUI.Gauges.Column1)
 
-	GUI.Gauges.Moves = GUI.Gauge.new({
+  GUI.Gauges.Moves = GUI.Gauge.new({
     name = "Moves",
     unit = "mv",
+	format = function (self, value, maxValue)
+      return self.name..": "..value.." / "..maxValue.."&lt;br&gt;("..aard.mpot..") potions"
+    end,
     color = "QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "..aard.mvc1..", stop: 1 "..aard.mvc2..")"
   }, GUI.Gauges.Column2)
 
   GUI.Gauges.Mana = GUI.Gauge.new({
     name = "Mana",
     unit = "mn",
+	format = function (self, value, maxValue)
+      return self.name..": "..value.." / "..maxValue.."&lt;br&gt;("..aard.spot..") potions"
+    end,
     color = "QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "..aard.mnc1..", stop: 1 "..aard.mnc2..")"
   }, GUI.Gauges.Column2)
 
   GUI.Gauges.Hunger = GUI.Gauge.new({
     name = "Hunger",
     unit = "",
+	format = function (self, value, maxValue)
+		percent = (tonumber(value) / tonumber(maxValue)) * 100
+		return self.name..": "..string.format("%i", percent).."%"
+	end,
     color = "QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "..aard.huc1..", stop: 1 "..aard.huc2..")"
   }, GUI.Gauges.Column3)
 
   GUI.Gauges.Thirst = GUI.Gauge.new({
     name = "Thirst",
     unit = "",
+	format = function (self, value, maxValue)
+		percent = (tonumber(value) / tonumber(maxValue)) * 100
+		return self.name..": "..string.format("%i", percent).."%"
+	end,
     color = "QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "..aard.thrc1..", stop: 1 "..aard.thrc2..")"
   }, GUI.Gauges.Column3)
 
   GUI.Gauges.ToNextLevel = GUI.Gauge.new({
     name = "XP",
     unit = "xp",
+	format = function (self, value, maxValue)
+      return self.name..": "..value.." / "..maxValue.."&lt;br&gt;Level: "..(aard.level or 0).." Quest: "..aard.qtime.." Blessing: "..aard.dtime
+    end,
     color = "QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "..aard.tnlc1..", stop: 1 "..aard.tnlc2..")"
   }, GUI.Gauges.Column4)
 
@@ -8300,6 +8314,9 @@ if true or not GUI.Gauges then
       else
         return -1 * value, max
       end
+    end,
+	format = function (self, value, maxValue)
+      return self.name..": "..value
     end,
     color = function (self, v)
       if v &gt; 875 then
@@ -8548,8 +8565,7 @@ send("get '"..aard.config["hpot"].."' "..aard.config["pbag"]..";quaf '"..aard.co
 if aard.hpot &gt; 0 then
 	aard.hpot = aard.hpot -1
 end
-local hp_pct = tostring(getPercent(aard.hp, aard.maxhp))
-GUI.Gauges.Health:setValue(aard.hp, aard.maxhp,"&lt;br&gt;("..aard.hpot..") potions")</script>
+GUI.Gauges.Health:setValue(aard.hp, aard.maxhp)</script>
 				<command></command>
 				<keyCode>47</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -8562,8 +8578,7 @@ send("get '"..aard.config["mpot"].."' "..aard.config["pbag"]..";quaf '"..aard.co
 if aard.spot &gt; 0 then
 	aard.spot = aard.spot -1
 end
-local mp_pct = tostring(getPercent(aard.mp, aard.maxmp))
-GUI.Gauges.Mana:setValue(aard.mp, aard.maxmp,"&lt;br&gt;("..aard.spot..") potions")</script>
+GUI.Gauges.Mana:setValue(aard.mp, aard.maxmp)</script>
 				<command></command>
 				<keyCode>42</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -8576,8 +8591,7 @@ send("get '"..aard.config["vpot"].."' "..aard.config["pbag"]..";quaf '"..aard.co
 if aard.mpot &gt; 0 then
 	aard.mpot = aard.mpot -1
 end
-local mv_pct = tostring(getPercent(aard.mv, aard.maxmv))
-GUI.Gauges.Moves:setValue(aard.mv, aard.maxmv,"&lt;br&gt;("..aard.mpot..") potions")</script>
+GUI.Gauges.Moves:setValue(aard.mv, aard.maxmv)</script>
 				<command></command>
 				<keyCode>45</keyCode>
 				<keyModifier>536870912</keyModifier>
