@@ -5449,6 +5449,7 @@ registerAnonymousEventHandler("sysWindowResizeEvent","GUIframe.eventHandler")</s
   gStyleW = '&lt;font style="color:#ffffff"&gt;'
   gStyleG = '&lt;font style="color:#1aa41a"&gt;'
 
+	GUI.Gauges.Info:setValue(0,100)
     GUI.Gauges.ToNextLevel:setValue(aard.tnlmax-aard.tnl, aard.tnlmax)
 end
 
@@ -6017,6 +6018,18 @@ function aard.searchRoomArea(what)
     result = realResult
   end
   return result
+end
+
+function format_int(number)
+
+  local i, j, minus, int, fraction = tostring(number):find('([-]?)(%d+)([.]?%d*)')
+
+  -- reverse the int-string and append a comma to all blocks of 3 digits
+  int = int:reverse():gsub("(%d%d%d)", "%1,")
+
+  -- reverse the int-string back remove an optional comma and put the
+  -- optional minus and fractional part back
+  return minus .. int:reverse():gsub("^,", "") .. fraction
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -7874,7 +7887,9 @@ end</script>
 	aard.hp, aard.maxhp = gmcp.char.vitals.hp, gmcp.char.maxstats.maxhp
 	aard.mp, aard.maxmp = gmcp.char.vitals.mana, gmcp.char.maxstats.maxmana
 	aard.mv, aard.maxmv = gmcp.char.vitals.moves, gmcp.char.maxstats.maxmoves
-  aard.hu, aard.thr = gmcp.char.status.hunger, gmcp.char.status.thirst
+	aard.hu, aard.thr = gmcp.char.status.hunger, gmcp.char.status.thirst
+	aard.pos = gmcp.char.status.pos
+	aard.bank, aard.coh = gmcp.char.worth.bank, gmcp.char.worth.gold
 
 	local hp_pct = tostring(getPercent(aard.hp, aard.maxhp))
 	local mp_pct = tostring(getPercent(aard.mp, aard.maxmp))
@@ -7885,11 +7900,14 @@ end</script>
 	end
 
   -- echo("aard.gui.Health"..aard.gui.Health)
-  GUI.Gauges.Health:setValue(aard.hp, aard.maxhp)
+	GUI.Gauges.Health:setValue(aard.hp, aard.maxhp)
 	GUI.Gauges.Mana:setValue(aard.mp, aard.maxmp)
 	GUI.Gauges.Moves:setValue(aard.mv, aard.maxmv)
-  GUI.Gauges.Hunger:setValue(aard.hu, 100)
-  GUI.Gauges.Thirst:setValue(aard.thr, 100)
+	GUI.Gauges.Hunger:setValue(aard.hu, 100)
+	GUI.Gauges.Thirst:setValue(aard.thr, 100)
+	GUI.Gauges.Info:setValue(0, 100)
+	GUI.Gauges.Bank:setValue(0, 100)
+	GUI.Gauges.Weather:setValue(0, 100)
 
 	--update group values for my character from char.vitals because it updates faster than group info that is only every 2-3 seconds.
 	if aard.gindex ~= 0 then
@@ -8152,28 +8170,6 @@ end
 if true or not GUI.Gauges then
   GUI.Gauges = {}
 
-  GUI.Footer = Geyser.HBox:new({
-    name = "GUI.Footer",
-    x = 0,
-    y = 0,
-    width = "100%",
-    height = "100%",
-  })
-  GUIframe.addWindow(GUI.Footer, 'Gauges', 'bottom')
-
-  GUI.Gauges.Column1 = Geyser.VBox:new({
-    name = "GUI.Gauges.Column1",
-  }, GUI.Footer)
-  GUI.Gauges.Column2 = Geyser.VBox:new({
-    name = "GUI.Gauges.Column2",
-  }, GUI.Footer)
-  GUI.Gauges.Column3 = Geyser.VBox:new({
-    name = "GUI.Gauges.Column3",
-  }, GUI.Footer)
-  GUI.Gauges.Column4 = Geyser.VBox:new({
-    name = "GUI.Gauges.Column4",
-  }, GUI.Footer)
-
   -- Gauge Styles
   GUI.Gauges.GaugeBackCSS = CSSMan.new([[
     font-weight: bold;
@@ -8195,6 +8191,64 @@ if true or not GUI.Gauges then
     padding: 1px;
     margin: 2px;
   ]])
+
+  GUI.Footer = Geyser.VBox:new({
+    name = "GUI.Footer",
+    x = 0,
+    y = 0,
+    width = "100%",
+    height = "100%",
+  })
+  GUIframe.addWindow(GUI.Footer, 'Gauges', 'bottom')
+
+  GUI.Footer.StatusBar = Geyser.HBox:new({
+    name = "GUI.Footer.StatusBar",
+  }, GUI.Footer)
+
+  GUI.Footer.Gauges = Geyser.HBox:new({
+    name = "GUI.Footer.Gauges",
+	v_stretch_factor = 3.0,
+  }, GUI.Footer)
+
+	GUI.Gauges.Bank = GUI.Gauge.new({
+		name = "Bank",
+    	unit = "",
+		format = function (self, value, maxValue)
+		return [[&lt;center&gt;Bank: ]]..format_int(aard.bank or 0)..[[ On Hand: ]]..format_int(aard.coh or 0)..[[&lt;/center&gt;]]
+		end,
+    	color = "QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #000, stop: 1 #000)",
+	}, GUI.Footer.StatusBar)
+
+	GUI.Gauges.Info = GUI.Gauge.new({
+		name = "Info",
+		unit = "",
+		format = function (self, value, maxValue)
+			return [[&lt;center&gt;Quest: ]]..aard.qtime..[[ Blessing: ]]..aard.dtime..[[ Status: ]]..(aard.pos or 0)..[[&lt;/center&gt;]]
+		end,
+		color = "QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #000, stop: 1 #000)",
+	}, GUI.Footer.StatusBar)
+
+	GUI.Gauges.Weather = GUI.Gauge.new({
+		name = "Weather",
+    	unit = "",
+		format = function (self, value, maxValue)
+			return [[&lt;center&gt;Bank: ]]..aard.qtime..[[ On Hand: ]]..aard.dtime..[[&lt;/center&gt;]]
+		end,
+    	color = "QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #000, stop: 1 #000)",
+	}, GUI.Footer.StatusBar)
+
+  GUI.Gauges.Column1 = Geyser.VBox:new({
+    name = "GUI.Gauges.Column1",
+  }, GUI.Footer.Gauges)
+  GUI.Gauges.Column2 = Geyser.VBox:new({
+    name = "GUI.Gauges.Column2",
+  }, GUI.Footer.Gauges)
+  GUI.Gauges.Column3 = Geyser.VBox:new({
+    name = "GUI.Gauges.Column3",
+  }, GUI.Footer.Gauges)
+  GUI.Gauges.Column4 = Geyser.VBox:new({
+    name = "GUI.Gauges.Column4",
+  }, GUI.Footer.Gauges)
 
   GUI.Gauges.Enemy = GUI.Gauge.new({
     name = "Enemy",
@@ -8257,7 +8311,7 @@ if true or not GUI.Gauges then
     name = "XP",
     unit = "xp",
 	format = function (self, value, maxValue)
-      return self.name..": "..value.." / "..maxValue.."&lt;br&gt;Level: "..(aard.level or 0).." Quest: "..aard.qtime.." Blessing: "..aard.dtime
+      return "Level: "..(aard.level or 0).."&lt;br&gt;"..self.name..": "..value.." / "..maxValue
     end,
     color = "QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "..aard.tnlc1..", stop: 1 "..aard.tnlc2..")"
   }, GUI.Gauges.Column4)
