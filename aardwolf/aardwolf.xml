@@ -7986,7 +7986,9 @@ end</script>
 	aard.mv, aard.maxmv = gmcp.char.vitals.moves, gmcp.char.maxstats.maxmoves
 	aard.hu, aard.thr = gmcp.char.status.hunger, gmcp.char.status.thirst
 	aard.pos = gmcp.char.status.pos
-	aard.bank, aard.coh = gmcp.char.worth.bank, gmcp.char.worth.gold
+  if gmcp.char.worth then
+    aard.bank, aard.coh = gmcp.char.worth.bank, gmcp.char.worth.gold
+  end
 
 	local hp_pct = tostring(getPercent(aard.hp, aard.maxhp))
 	local mp_pct = tostring(getPercent(aard.mp, aard.maxmp))
