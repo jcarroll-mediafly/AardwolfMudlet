@@ -4002,6 +4002,103 @@ end</script>
 					</Trigger>
 				</Trigger>
 			</TriggerGroup>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>WeatherTime</name>
+				<script>if (aard.parsingWeatherTime or 0) == 1 then
+--  echo("start")
+
+  aard.time = ""
+  if line == "You need to be outside to check the weather." then 
+    aard.moons = {"Go outside to check"}
+  else
+    aard.moons = {}
+  end  
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>25</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^The temperature (.*)\.$</string>
+					<string>You need to be outside to check the weather.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Parse</name>
+					<script>if (aard.parsingWeatherTime or 0) == 1 then
+  local time, day, season, year = string.match(line, "It is (.*) on the (%d*).*Season of the (.*), year (%d+).*")
+  if time and day and season and year then
+    aard.time = "&lt;pre&gt;"..season.."/"..day.."/"..year.. " "..time.."&lt;br&gt;Moons: "
+  end
+  local moon = string.match(line, "(.*) moon")
+  if moon then
+     local words = string.split(moon, " ")
+     table.insert(aard.moons, words[table.getn(words)])
+  end
+  deleteLine()
+else
+  setTriggerStayOpen("WeatherTime",0)
+end
+</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^(.*)$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>endCapture</name>
+					<script>setTriggerStayOpen("WeatherTime",0)
+--echo("un set fflag")
+aard.parsingWeatherTime = 0
+
+local moonValue = "(none)"
+if next(aard.moons) then
+   moonValue = table.concat(aard.moons, ", ")
+end
+
+
+aard.time = aard.time..moonValue.."&lt;/pre&gt;"
+
+GUI.Gauges.Weather:setValue(0, 100)</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^For offline time information, (.*)\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</Trigger>
 		</TriggerGroup>
 	</TriggerPackage>
 	<TimerPackage />
@@ -8080,6 +8177,9 @@ end</script>
 		end
   end
 	aard.qTimeNOexp()
+  aard.parsingWeatherTime = 1
+  send("weather", false)  
+  send("time", false)  
 end
 --aard.timerDaily = getEpoch()+(matches[2]*60*60)+(matches[3]*60)+matches[4]
 --aard.dtime</script>
@@ -8214,7 +8314,7 @@ if true or not GUI.Gauges then
 		name = "Bank",
     	unit = "",
 		format = function (self, value, maxValue)
-		return [[&lt;center&gt;Bank: ]]..format_int(aard.bank or 0)..[[ On Hand: ]]..format_int(aard.coh or 0)..[[&lt;/center&gt;]]
+		return [[&lt;center&gt;Bank: ]]..format_int(aard.bank or 0)..[[&lt;br&gt;On Hand: ]]..format_int(aard.coh or 0)..[[&lt;/center&gt;]]
 		end,
     	color = "QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #000, stop: 1 #000)",
 	}, GUI.Footer.StatusBar)
@@ -8232,7 +8332,7 @@ if true or not GUI.Gauges then
 		name = "Weather",
     	unit = "",
 		format = function (self, value, maxValue)
-			return [[&lt;center&gt;Bank: ]]..aard.qtime..[[ On Hand: ]]..aard.dtime..[[&lt;/center&gt;]]
+			return [[&lt;center&gt;]]..(aard.time or "No Weather")..[[&lt;/center&gt;]]
 		end,
     	color = "QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #000, stop: 1 #000)",
 	}, GUI.Footer.StatusBar)
