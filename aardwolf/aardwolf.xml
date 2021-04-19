@@ -4010,6 +4010,8 @@ end</script>
   aard.time = ""
   if line == "You need to be outside to check the weather." then 
     aard.moons = {"Go outside to check"}
+  elseif line == "You dream about the weather." then
+    aard.moons = {"You need to be awake!"}
   else
     aard.moons = {}
   end  
@@ -4027,9 +4029,11 @@ end</script>
 				<regexCodeList>
 					<string>^The temperature (.*)\.$</string>
 					<string>You need to be outside to check the weather.</string>
+					<string>You dream about the weather.</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
+					<integer>3</integer>
 					<integer>3</integer>
 				</regexCodePropertyList>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
