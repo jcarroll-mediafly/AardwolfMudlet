@@ -8315,46 +8315,51 @@ if true or not GUI.Gauges then
   FountainButton = Geyser.Label:new({
     name = "FountainButton",
     x = "0", y = "0",
-    width = "15c", height = "100%",
+    width = "12c", height = "100%",    
     message = [[&lt;center&gt;Fountain&lt;/center&gt;]]
   }, ButtonContainer)    
   FountainButton:setClickCallback("goToFountain")
+  FountainButton:setBackgroundImage(getMudletHomeDir().."/aardwolf/fountain.png")
   FountainButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
   
   QuestorButton = Geyser.Label:new({
     name = "QuestorButton",
-    x = "15c", y = "0",
-    width = "15c", height = "100%",
+    x = "12c", y = "0",
+    width = "12c", height = "100%",
     message = [[&lt;center&gt;Quest&lt;/center&gt;]]
   }, ButtonContainer)    
   QuestorButton:setClickCallback("goToQuestor")
+  QuestorButton:setBackgroundImage(getMudletHomeDir().."/aardwolf/quest.png")
   QuestorButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
   
   BankButton = Geyser.Label:new({
     name = "BankButton",
-    x = "30c", y = "0",
-    width = "15c", height = "100%",
+    x = "24c", y = "0",
+    width = "12c", height = "100%",
     message = [[&lt;center&gt;Bank&lt;/center&gt;]]
   }, ButtonContainer)
   BankButton:setClickCallback("goToBank")
+  BankButton:setBackgroundImage(getMudletHomeDir().."/aardwolf/bank.png")
   BankButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
   
   ClinicButton = Geyser.Label:new({
     name = "ClinicButton",
-    x = "45c", y = "0",
-    width = "15c", height = "100%",
+    x = "36c", y = "0",
+    width = "12c", height = "100%",
     message = [[&lt;center&gt;Clinic&lt;/center&gt;]]
   }, ButtonContainer)
   ClinicButton:setClickCallback("goToClinic")
+  ClinicButton:setBackgroundImage(getMudletHomeDir().."/aardwolf/clinic.png")
   ClinicButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
   
   PracticeButton = Geyser.Label:new({
     name = "PracticeButton",
-    x = "60c", y = "0",
-    width = "15c", height = "100%",
+    x = "48c", y = "0",
+    width = "12c", height = "100%",
     message = [[&lt;center&gt;Practice&lt;/center&gt;]]
   }, ButtonContainer)
   PracticeButton:setClickCallback("goToPractice")
+  PracticeButton:setBackgroundImage(getMudletHomeDir().."/aardwolf/train.png")
   PracticeButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
   
   GUI.Footer.StatusBar = Geyser.HBox:new({
@@ -8570,7 +8575,7 @@ end
 function goToQuestor()
   gotoRoom(32458)
   send("q complete")
- -- send("q r")
+  send("q r")
 end
 
 function goToBank()
