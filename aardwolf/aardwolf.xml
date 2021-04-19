@@ -8183,9 +8183,11 @@ end</script>
 		end
   end
 	aard.qTimeNOexp()
-  aard.parsingWeatherTime = 1
-  send("weather", false)  
-  send("time", false)  
+  if aard.state ~= 8 and aard.state ~= 7 then
+    aard.parsingWeatherTime = 1
+    send("weather", false)  
+    send("time", false)  
+    end
 end
 --aard.timerDaily = getEpoch()+(matches[2]*60*60)+(matches[3]*60)+matches[4]
 --aard.dtime</script>
