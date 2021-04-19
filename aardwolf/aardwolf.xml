@@ -8767,11 +8767,13 @@ end</script>
 				<name>/ health potion</name>
 				<packageName></packageName>
 				<script>--to change the potion used, change "config" in Scripts section.
-send("get '"..aard.config["hpot"].."' "..aard.config["pbag"]..";quaf '"..aard.config["hpot"].."'",true)
-if aard.hpot &gt; 0 then
-	aard.hpot = aard.hpot -1
-end
-GUI.Gauges.Health:setValue(aard.hp, aard.maxhp)</script>
+if aard.hp / aard.maxhp &lt; .9 then
+  send("get '"..aard.config["hpot"].."' "..aard.config["pbag"]..";quaf '"..aard.config["hpot"].."'",true)
+  if aard.hpot &gt; 0 then
+  	aard.hpot = aard.hpot -1
+  end
+  GUI.Gauges.Health:setValue(aard.hp, aard.maxhp)
+ end</script>
 				<command></command>
 				<keyCode>47</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -8780,11 +8782,13 @@ GUI.Gauges.Health:setValue(aard.hp, aard.maxhp)</script>
 				<name>* mana potion</name>
 				<packageName></packageName>
 				<script>--to change the potion used, change "config" in Scripts section.
-send("get '"..aard.config["mpot"].."' "..aard.config["pbag"]..";quaf '"..aard.config["mpot"].."'",true)
-if aard.spot &gt; 0 then
-	aard.spot = aard.spot -1
-end
-GUI.Gauges.Mana:setValue(aard.mp, aard.maxmp)</script>
+if aard.mp / aard.maxmp &lt; .9 then
+  send("get '"..aard.config["mpot"].."' "..aard.config["pbag"]..";quaf '"..aard.config["mpot"].."'",true)
+  if aard.spot &gt; 0 then
+  	aard.spot = aard.spot -1
+  end
+  GUI.Gauges.Mana:setValue(aard.mp, aard.maxmp)
+ end</script>
 				<command></command>
 				<keyCode>42</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -8793,11 +8797,13 @@ GUI.Gauges.Mana:setValue(aard.mp, aard.maxmp)</script>
 				<name>- move potion</name>
 				<packageName></packageName>
 				<script>--to change the potion used, change "config" in Scripts section.
-send("get '"..aard.config["vpot"].."' "..aard.config["pbag"]..";quaf '"..aard.config["vpot"].."'",true)
-if aard.mpot &gt; 0 then
-	aard.mpot = aard.mpot -1
-end
-GUI.Gauges.Moves:setValue(aard.mv, aard.maxmv)</script>
+if aard.mv / aard.maxmv &lt; .9 then
+  send("get '"..aard.config["vpot"].."' "..aard.config["pbag"]..";quaf '"..aard.config["vpot"].."'",true)
+  if aard.mpot &gt; 0 then
+  	aard.mpot = aard.mpot -1
+  end
+  GUI.Gauges.Moves:setValue(aard.mv, aard.maxmv)
+ end</script>
 				<command></command>
 				<keyCode>45</keyCode>
 				<keyModifier>536870912</keyModifier>
