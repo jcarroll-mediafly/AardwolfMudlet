@@ -8271,6 +8271,7 @@ end
 
 if true or not GUI.Gauges then
   GUI.Gauges = {}
+  GUI.BarButtons = {}
 
   -- Gauge Styles
   GUI.Gauges.GaugeBackCSS = CSSMan.new([[
@@ -8303,13 +8304,62 @@ if true or not GUI.Gauges then
   })
   GUIframe.addWindow(GUI.Footer, 'Gauges', 'bottom')
 
+  ButtonContainer = Geyser.Container:new({
+    name = "ButtonContainer",    
+  }, GUI.Footer)
+  
+  FountainButton = Geyser.Label:new({
+    name = "FountainButton",
+    x = "0", y = "0",
+    width = "15c", height = "100%",
+    message = [[&lt;center&gt;Fountain&lt;/center&gt;]]
+  }, ButtonContainer)    
+  FountainButton:setClickCallback("goToFountain")
+  FountainButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
+  
+  QuestorButton = Geyser.Label:new({
+    name = "QuestorButton",
+    x = "15c", y = "0",
+    width = "15c", height = "100%",
+    message = [[&lt;center&gt;Quest&lt;/center&gt;]]
+  }, ButtonContainer)    
+  QuestorButton:setClickCallback("goToQuestor")
+  QuestorButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
+  
+  BankButton = Geyser.Label:new({
+    name = "BankButton",
+    x = "30c", y = "0",
+    width = "15c", height = "100%",
+    message = [[&lt;center&gt;Bank&lt;/center&gt;]]
+  }, ButtonContainer)
+  BankButton:setClickCallback("goToBank")
+  BankButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
+  
+  ClinicButton = Geyser.Label:new({
+    name = "ClinicButton",
+    x = "45c", y = "0",
+    width = "15c", height = "100%",
+    message = [[&lt;center&gt;Clinic&lt;/center&gt;]]
+  }, ButtonContainer)
+  ClinicButton:setClickCallback("goToClinic")
+  ClinicButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
+  
+  PracticeButton = Geyser.Label:new({
+    name = "PracticeButton",
+    x = "60c", y = "0",
+    width = "15c", height = "100%",
+    message = [[&lt;center&gt;Practice&lt;/center&gt;]]
+  }, ButtonContainer)
+  PracticeButton:setClickCallback("goToPractice")
+  PracticeButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
+  
   GUI.Footer.StatusBar = Geyser.HBox:new({
     name = "GUI.Footer.StatusBar",
   }, GUI.Footer)
 
   GUI.Footer.Gauges = Geyser.HBox:new({
     name = "GUI.Footer.Gauges",
-	v_stretch_factor = 3.0,
+	  v_stretch_factor = 3.0,
   }, GUI.Footer)
 
 	GUI.Gauges.Bank = GUI.Gauge.new({
@@ -8501,6 +8551,38 @@ end
     padding: 0px;
     margin: 0px;
   ]])
+</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Buttons</name>
+					<packageName></packageName>
+					<script>function goToFountain()
+  gotoRoom(35233)
+  send("gulp")
+  send("fill skin")
+end
+
+function goToQuestor()
+  gotoRoom(32458)
+  send("q complete")
+ -- send("q r")
+end
+
+function goToBank()
+  gotoRoom(32469)
+  send("deposit all")
+  send("withdraw 8000")
+end
+
+function goToClinic()
+  gotoRoom(35210)
+  send("sleep bed")
+end
+
+function goToPractice()
+  gotoRoom(35204)
+end
 </script>
 					<eventHandlerList />
 				</Script>
@@ -9015,6 +9097,54 @@ aard.other = true</script>
 				<keyCode>16777271</keyCode>
 				<keyModifier>0</keyModifier>
 			</Key>
+			<KeyGroup isActive="yes" isFolder="yes">
+				<name>Bar Buttons</name>
+				<packageName></packageName>
+				<script></script>
+				<command></command>
+				<keyCode>33554431</keyCode>
+				<keyModifier>0</keyModifier>
+				<Key isActive="yes" isFolder="no">
+					<name>Cmd + 1</name>
+					<packageName></packageName>
+					<script>goToFountain()</script>
+					<command></command>
+					<keyCode>49</keyCode>
+					<keyModifier>67108864</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Cmd + 2</name>
+					<packageName></packageName>
+					<script>goToQuestor()</script>
+					<command></command>
+					<keyCode>50</keyCode>
+					<keyModifier>67108864</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Cmd + 3</name>
+					<packageName></packageName>
+					<script>goToBank()</script>
+					<command></command>
+					<keyCode>51</keyCode>
+					<keyModifier>67108864</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Cmd + 4</name>
+					<packageName></packageName>
+					<script>goToClinic()</script>
+					<command></command>
+					<keyCode>52</keyCode>
+					<keyModifier>67108864</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Cmd + 5</name>
+					<packageName></packageName>
+					<script>goToPractice()</script>
+					<command></command>
+					<keyCode>53</keyCode>
+					<keyModifier>67108864</keyModifier>
+				</Key>
+			</KeyGroup>
 		</KeyGroup>
 	</KeyPackage>
 	<HelpPackage>
