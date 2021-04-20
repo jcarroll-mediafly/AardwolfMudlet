@@ -8569,30 +8569,40 @@ end
 					<name>Buttons</name>
 					<packageName></packageName>
 					<script>function goToFountain()
-  gotoRoom(35233)
+  if gmcp.room.info.num ~= 35233 then
+    gotoRoom(35233)
+  end
   send("gulp")
   send("fill skin")
 end
 
 function goToQuestor()
-  gotoRoom(32458)
+  if gmcp.room.info.num ~= 32458 then
+    gotoRoom(32458)
+  end
   send("q complete")
   send("q r")
 end
 
 function goToBank()
-  gotoRoom(32469)
+  if gmcp.room.info.num ~= 32469 then
+    gotoRoom(32469)
+  end
   send("deposit all")
   send("withdraw 8000")
 end
 
 function goToClinic()
-  gotoRoom(35210)
+  if gmcp.room.info.num ~= 35210 then
+    gotoRoom(35210)
+  end
   send("sleep bed")
 end
 
 function goToPractice()
-  gotoRoom(35204)
+  if gmcp.room.info.num ~= 35204 then
+    gotoRoom(35204)
+  end
 end
 </script>
 					<eventHandlerList />
