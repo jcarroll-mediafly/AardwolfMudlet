@@ -4003,22 +4003,31 @@ end</script>
 				</Trigger>
 			</TriggerGroup>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>WeatherTime</name>
-				<script>if (aard.parsingWeatherTime or 0) == 1 then
---  echo("start")
+				<name>Moons</name>
+				<script>aard.moonDict = aard.moonDict or {}
+if matches.status == "falling" then
+  aard.moonDict[matches.moon] = false
+else
+  aard.moonDict[matches.moon] = true
+end
 
-  aard.time = ""
-  if line == "You need to be outside to check the weather." then 
-    aard.moons = {"Go outside to check"}
-  elseif line == "You dream about the weather." then
-    aard.moons = {"You need to be awake!"}
-  else
-    aard.moons = {}
-  end  
-end</script>
+aard.moons = {}
+if aard.moonDict.white then
+  table.insert(aard.moons, "White")
+end
+
+if aard.moonDict.black then
+  table.insert(aard.moons, "Black")
+end
+
+if aard.moonDict.grey then
+  table.insert(aard.moons, "Grey")
+end
+    
+GUI.Gauges.Weather:setValue(0, 100)</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
-				<mStayOpen>25</mStayOpen>
+				<mStayOpen>0</mStayOpen>
 				<mCommand></mCommand>
 				<packageName></packageName>
 				<mFgColor>#ff0000</mFgColor>
@@ -4027,32 +4036,38 @@ end</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^The temperature (.*)\.$</string>
-					<string>You need to be outside to check the weather.</string>
-					<string>You dream about the weather.</string>
+					<string>(?&lt;moon&gt;(black|grey|white)) moon (?&lt;status&gt;(falling|rising|is standing))</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
-					<integer>3</integer>
-					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Time</name>
+				<script>aard.time = matches.season.."/"..matches.day.."/"..matches.year.. " "..matches.time
+--echo(aard.time)
+GUI.Gauges.Weather:setValue(0, 100)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>6</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^  \*  It is (?&lt;time&gt;\w+) on the (?&lt;day&gt;\d+).* of the Season of (the |)(?&lt;season&gt;\w+), year (?&lt;year&gt;\d+) AVT.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
 				</regexCodePropertyList>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Parse</name>
-					<script>if (aard.parsingWeatherTime or 0) == 1 then
-  local time, day, season, year = string.match(line, "It is (.*) on the (%d*).*Season of the (.*), year (%d+).*")
-  if time and day and season and year then
-    aard.time = "&lt;pre&gt;"..season.."/"..day.."/"..year.. " "..time.."&lt;br&gt;Moons: "
-  end
-  local moon = string.match(line, "(.*) moon")
-  if moon then
-     local words = string.split(moon, " ")
-     table.insert(aard.moons, words[table.getn(words)])
-  end
+					<script>if (aard.parsingTime or 0) == 1 then
   deleteLine()
-else
-  setTriggerStayOpen("WeatherTime",0)
-end
-</script>
+end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -4071,20 +4086,9 @@ end
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>endCapture</name>
-					<script>setTriggerStayOpen("WeatherTime",0)
---echo("un set fflag")
-aard.parsingWeatherTime = 0
-
-local moonValue = "(none)"
-if next(aard.moons) then
-   moonValue = table.concat(aard.moons, ", ")
-end
-
-
-aard.time = aard.time..moonValue.."&lt;/pre&gt;"
-
-GUI.Gauges.Weather:setValue(0, 100)</script>
+					<name>End capture</name>
+					<script>setTriggerStayOpen("Time",0)
+aard.parsingTime = 0</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -8184,8 +8188,7 @@ end</script>
   end
 	aard.qTimeNOexp()
   if aard.state ~= 8 and aard.state ~= 7 then
-    aard.parsingWeatherTime = 1
-    send("weather", false)  
+    aard.parsingTime = 1
     send("time", false)  
     end
 end
@@ -8395,7 +8398,14 @@ if true or not GUI.Gauges then
 		name = "Weather",
     	unit = "",
 		format = function (self, value, maxValue)
-			return [[&lt;center&gt;]]..(aard.time or "No Weather")..[[&lt;/center&gt;]]
+      aard.time = aard.time or "No Weather"
+      
+      local moonValue = "(none)"
+      if next(aard.moons or {}) then
+        moonValue = table.concat(aard.moons, ", ")
+      end
+      local text = "&lt;pre&gt;"..aard.time.."&lt;br&gt;Moons: "..moonValue.."&lt;/pre&gt;"      
+			return [[&lt;center&gt;]]..text..[[&lt;/center&gt;]]
 		end,
     	color = "QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #000, stop: 1 #000)",
 	}, GUI.Footer.StatusBar)
