@@ -8367,6 +8367,16 @@ if true or not GUI.Gauges then
   PracticeButton:setBackgroundImage(getMudletHomeDir().."/aardwolf/train.png")
   PracticeButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
   
+  MoonButton = Geyser.Label:new({
+    name = "MoonButton",
+    x = "60c", y = "0",
+    width = "12c", height = "100%",
+    message = [[&lt;center&gt;Moons&lt;/center&gt;]]
+  }, ButtonContainer)
+  MoonButton:setClickCallback("resetMoons")
+  -- MoonButton:setBackgroundImage(getMudletHomeDir().."/aardwolf/moon.png")
+  MoonButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
+  
   GUI.Footer.StatusBar = Geyser.HBox:new({
     name = "GUI.Footer.StatusBar",
   }, GUI.Footer)
@@ -8614,7 +8624,11 @@ function goToPractice()
     gotoRoom(35204)
   end
 end
-</script>
+
+function resetMoons() 
+  aard.moonDict = {}
+  send("weather")
+end</script>
 					<eventHandlerList />
 				</Script>
 			</ScriptGroup>
