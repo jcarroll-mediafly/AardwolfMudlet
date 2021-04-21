@@ -8278,6 +8278,17 @@ function GUI.Gauge:setValue(value, maxValue)
   self.gauge.front:setStyleSheet(stylesheet:getCSS())
 end
 
+function newBarButton(args, container)
+  local button = Geyser.Label:new({
+    name = args.name,
+    x = args.offset, y = "0",
+    width = "12c", height = "100%"
+  }, container)
+  button:setClickCallback(args.functionName)
+  button:setBackgroundImage(getMudletHomeDir().."/aardwolf/"..args.image)
+  button:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
+end
+
 if true or not GUI.Gauges then
   GUI.Gauges = {}
   GUI.BarButtons = {}
@@ -8317,65 +8328,48 @@ if true or not GUI.Gauges then
     name = "ButtonContainer",    
   }, GUI.Footer)
   
-  FountainButton = Geyser.Label:new({
+  newBarButton({
     name = "FountainButton",
-    x = "0", y = "0",
-    width = "12c", height = "100%",    
-    message = [[&lt;center&gt;Fountain&lt;/center&gt;]]
-  }, ButtonContainer)    
-  FountainButton:setClickCallback("goToFountain")
-  FountainButton:setBackgroundImage(getMudletHomeDir().."/aardwolf/fountain.png")
-  FountainButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
+    offset = "0",
+    functionName = "goToFountain",
+    image = "fountain.png"
+  }, ButtonContainer)
   
-  QuestorButton = Geyser.Label:new({
+  newBarButton({
     name = "QuestorButton",
-    x = "12c", y = "0",
-    width = "12c", height = "100%",
-    message = [[&lt;center&gt;Quest&lt;/center&gt;]]
-  }, ButtonContainer)    
-  QuestorButton:setClickCallback("goToQuestor")
-  QuestorButton:setBackgroundImage(getMudletHomeDir().."/aardwolf/quest.png")
-  QuestorButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
+    offset = "12c",
+    functionName = "goToQuestor",
+    image = "quest.png"
+  }, ButtonContainer)
   
-  BankButton = Geyser.Label:new({
+  newBarButton({
     name = "BankButton",
-    x = "24c", y = "0",
-    width = "12c", height = "100%",
-    message = [[&lt;center&gt;Bank&lt;/center&gt;]]
+    offset = "24c",
+    functionName = "goToBank",
+    image = "bank.png"
   }, ButtonContainer)
-  BankButton:setClickCallback("goToBank")
-  BankButton:setBackgroundImage(getMudletHomeDir().."/aardwolf/bank.png")
-  BankButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
   
-  ClinicButton = Geyser.Label:new({
+  newBarButton({
     name = "ClinicButton",
-    x = "36c", y = "0",
-    width = "12c", height = "100%",
-    message = [[&lt;center&gt;Clinic&lt;/center&gt;]]
+    offset = "36c",
+    functionName = "goToClinic",
+    image = "clinic.png"
   }, ButtonContainer)
-  ClinicButton:setClickCallback("goToClinic")
-  ClinicButton:setBackgroundImage(getMudletHomeDir().."/aardwolf/clinic.png")
-  ClinicButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
   
-  PracticeButton = Geyser.Label:new({
+  newBarButton({
     name = "PracticeButton",
-    x = "48c", y = "0",
-    width = "12c", height = "100%",
-    message = [[&lt;center&gt;Practice&lt;/center&gt;]]
+    offset = "48c",
+    functionName = "goToPractice",
+    image = "train.png"
   }, ButtonContainer)
-  PracticeButton:setClickCallback("goToPractice")
-  PracticeButton:setBackgroundImage(getMudletHomeDir().."/aardwolf/train.png")
-  PracticeButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
   
-  MoonButton = Geyser.Label:new({
+  newBarButton({
     name = "MoonButton",
-    x = "60c", y = "0",
-    width = "12c", height = "100%",
-    message = [[&lt;center&gt;Moons&lt;/center&gt;]]
+    offset = "60c",
+    functionName = "resetMoons",
+    image = "moon.png"
   }, ButtonContainer)
-  MoonButton:setClickCallback("resetMoons")
-  -- MoonButton:setBackgroundImage(getMudletHomeDir().."/aardwolf/moon.png")
-  MoonButton:setStyleSheet(GUI.Gauges.GaugeBackCSS:getCSS())
+        
   
   GUI.Footer.StatusBar = Geyser.HBox:new({
     name = "GUI.Footer.StatusBar",
