@@ -8803,6 +8803,14 @@ end</script>
 			<command></command>
 			<keyCode>-1</keyCode>
 			<keyModifier>4294967295</keyModifier>
+			<Key isActive="no" isFolder="no">
+				<name>Drink</name>
+				<packageName></packageName>
+				<script></script>
+				<command></command>
+				<keyCode>33554431</keyCode>
+				<keyModifier>0</keyModifier>
+			</Key>
 			<Key isActive="yes" isFolder="no">
 				<name>/ health potion</name>
 				<packageName></packageName>
@@ -9199,6 +9207,22 @@ aard.other = true</script>
 					<script>goToPractice()</script>
 					<command></command>
 					<keyCode>53</keyCode>
+					<keyModifier>67108864</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Cmd + 6</name>
+					<packageName></packageName>
+					<script>resetMoons()</script>
+					<command></command>
+					<keyCode>54</keyCode>
+					<keyModifier>67108864</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Cmd + 7</name>
+					<packageName></packageName>
+					<script>goToSell()</script>
+					<command></command>
+					<keyCode>55</keyCode>
 					<keyModifier>67108864</keyModifier>
 				</Key>
 			</KeyGroup>
