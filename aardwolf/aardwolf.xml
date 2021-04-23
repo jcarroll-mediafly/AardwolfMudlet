@@ -8598,7 +8598,7 @@ end
     gotoRoom(35233)
   end
   send("gulp")
-  send("fill skin")
+  send("get '"..aard.config["canteen"].."' "..aard.config["pbag"].."; fill '"..aard.config["canteen"].."'; put '"..aard.config["canteen"].."' "..aard.config["pbag"])
 end
 
 function goToQuestor()
