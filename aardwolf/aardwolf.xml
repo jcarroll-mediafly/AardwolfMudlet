@@ -8802,7 +8802,7 @@ end</script>
 			<script></script>
 			<command></command>
 			<keyCode>-1</keyCode>
-			<keyModifier>4294967295</keyModifier>
+			<keyModifier>0</keyModifier>
 			<Key isActive="no" isFolder="no">
 				<name>Drink</name>
 				<packageName></packageName>
