@@ -8369,7 +8369,13 @@ if true or not GUI.Gauges then
     functionName = "resetMoons",
     image = "moon.png"
   }, ButtonContainer)
-        
+       
+  newBarButton({
+    name = "SellerButton",
+    offset = "72c",
+    functionName = "goToSell",
+    image = "sell.png"
+  }, ButtonContainer) 
   
   GUI.Footer.StatusBar = Geyser.HBox:new({
     name = "GUI.Footer.StatusBar",
@@ -8622,6 +8628,12 @@ end
 function resetMoons() 
   aard.moonDict = {}
   send("weather")
+end
+
+function goToSell()
+  if gmcp.room.info.num ~= 31156 then
+    gotoRoom(31156)
+  end
 end</script>
 					<eventHandlerList />
 				</Script>
