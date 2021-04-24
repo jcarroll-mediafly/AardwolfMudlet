@@ -4023,7 +4023,7 @@ end
 if aard.moonDict.grey then
   table.insert(aard.moons, "Grey")
 end
-    
+
 GUI.Gauges.Weather:setValue(0, 100)</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -8632,6 +8632,8 @@ end
 
 function resetMoons()
   aard.moonDict = {}
+  aard.moons = {}
+  GUI.Gauges.Weather:setValue(0, 100)
   send("weather")
 end
 
