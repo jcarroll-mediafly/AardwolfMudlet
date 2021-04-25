@@ -8381,6 +8381,35 @@ if true or not GUI.Gauges then
     functionName = "goToSell",
     image = "sell.png"
   }, ButtonContainer)
+  
+  newBarButton({
+    name = "BuffButton",
+    offset = "84c",
+    functionName = "buffUp",
+    image = "buff.png"
+  }, ButtonContainer)
+
+  newBarButton({
+    name = "HealthPotButton",
+    offset = "96c",
+    functionName = "popHealthPot",
+    image = "healthPot.png"
+  }, ButtonContainer)
+  
+  newBarButton({
+    name = "ManaPotButton",
+    offset = "108c",
+    functionName = "popManaPot",
+    image = "manaPot.png"
+  }, ButtonContainer)
+  
+  newBarButton({
+    name = "MoveButton",
+    offset = "120c",
+    functionName = "popMovePot",
+    image = "movePot.png"
+  }, ButtonContainer)
+
 
   GUI.Footer.StatusBar = Geyser.HBox:new({
     name = "GUI.Footer.StatusBar",
@@ -8641,6 +8670,40 @@ function goToSell()
   if gmcp.room.info.num ~= 31156 then
     gotoRoom(31156)
   end
+end
+
+function buffUp()
+  send(aard.config["buff"])
+end
+
+function popHealthPot()
+  if aard.hp / aard.maxhp &lt; .9 then
+    send("get '"..aard.config["hpot"].."' "..aard.config["pbag"]..";quaf '"..aard.config["hpot"].."'",true)
+    if aard.hpot &gt; 0 then
+      aard.hpot = aard.hpot -1
+    end
+    GUI.Gauges.Health:setValue(aard.hp, aard.maxhp)
+  end
+end
+
+function popManaPot() 
+  if aard.mp / aard.maxmp &lt; .9 then
+    send("get '"..aard.config["mpot"].."' "..aard.config["pbag"]..";quaf '"..aard.config["mpot"].."'",true)
+    if aard.spot &gt; 0 then
+    	aard.spot = aard.spot -1
+    end
+    GUI.Gauges.Mana:setValue(aard.mp, aard.maxmp)
+  end
+end
+
+function popMovePot()
+  if aard.mv / aard.maxmv &lt; .9 then
+    send("get '"..aard.config["vpot"].."' "..aard.config["pbag"]..";quaf '"..aard.config["vpot"].."'",true)
+    if aard.mpot &gt; 0 then
+    	aard.mpot = aard.mpot -1
+    end
+    GUI.Gauges.Moves:setValue(aard.mv, aard.maxmv)
+ end
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -8823,13 +8886,7 @@ send("get '"..aard.config["canteen"].."' "..aard.config["pbag"].."; drink '"..aa
 				<name>/ health potion</name>
 				<packageName></packageName>
 				<script>--to change the potion used, change "config" in Scripts section.
-if aard.hp / aard.maxhp &lt; .9 then
-  send("get '"..aard.config["hpot"].."' "..aard.config["pbag"]..";quaf '"..aard.config["hpot"].."'",true)
-  if aard.hpot &gt; 0 then
-  	aard.hpot = aard.hpot -1
-  end
-  GUI.Gauges.Health:setValue(aard.hp, aard.maxhp)
- end</script>
+popHealthPot()</script>
 				<command></command>
 				<keyCode>47</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -8838,13 +8895,7 @@ if aard.hp / aard.maxhp &lt; .9 then
 				<name>* mana potion</name>
 				<packageName></packageName>
 				<script>--to change the potion used, change "config" in Scripts section.
-if aard.mp / aard.maxmp &lt; .9 then
-  send("get '"..aard.config["mpot"].."' "..aard.config["pbag"]..";quaf '"..aard.config["mpot"].."'",true)
-  if aard.spot &gt; 0 then
-  	aard.spot = aard.spot -1
-  end
-  GUI.Gauges.Mana:setValue(aard.mp, aard.maxmp)
- end</script>
+popManaPot()</script>
 				<command></command>
 				<keyCode>42</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -8853,13 +8904,7 @@ if aard.mp / aard.maxmp &lt; .9 then
 				<name>- move potion</name>
 				<packageName></packageName>
 				<script>--to change the potion used, change "config" in Scripts section.
-if aard.mv / aard.maxmv &lt; .9 then
-  send("get '"..aard.config["vpot"].."' "..aard.config["pbag"]..";quaf '"..aard.config["vpot"].."'",true)
-  if aard.mpot &gt; 0 then
-  	aard.mpot = aard.mpot -1
-  end
-  GUI.Gauges.Moves:setValue(aard.mv, aard.maxmv)
- end</script>
+popMovePot()</script>
 				<command></command>
 				<keyCode>45</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -8870,7 +8915,7 @@ if aard.mv / aard.maxmv &lt; .9 then
 				<script>if aard.state == 8 then
 	send(aard.config["attack1"],true)--in combat
 else
-	send(aard.config["buff"],true)--out of combat
+  buffUp()
 end</script>
 				<command></command>
 				<keyCode>43</keyCode>
