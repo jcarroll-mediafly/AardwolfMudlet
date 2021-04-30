@@ -8410,6 +8410,12 @@ if true or not GUI.Gauges then
     image = "movePot.png"
   }, ButtonContainer)
 
+  newBarButton({
+    name = "PotionStoreButton",
+    offset = "132c",
+    functionName = "goToPotion",
+    image = "potionStore.png"
+  }, ButtonContainer)
 
   GUI.Footer.StatusBar = Geyser.HBox:new({
     name = "GUI.Footer.StatusBar",
@@ -8704,6 +8710,12 @@ function popMovePot()
     end
     GUI.Gauges.Moves:setValue(aard.mv, aard.maxmv)
  end
+end
+
+function goToPotion()
+  if gmcp.room.info.num ~= 32476 then
+    gotoRoom(32476)
+  end
 end</script>
 					<eventHandlerList />
 				</Script>
