@@ -7710,7 +7710,7 @@ end</script>
 					<script>function onGroup()
   -- echo("Received onGroup()")
 	-- display(gmcp.group)
-	--if not (aard.gui.init) then return end
+	if not aard.config then return end
 	--local g1hp, g1mhp = 99999, 99999
 	if aard.config["group"] == 0 then
 
