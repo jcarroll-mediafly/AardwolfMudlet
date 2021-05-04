@@ -8079,6 +8079,7 @@ end
 
 function aard.map:parseGmcpRoom()
   local room_data = gmcp.room.info
+  if not room_data then return end
 	--local full = gmcp.room
   --display(room_data)
 	--display(full)
