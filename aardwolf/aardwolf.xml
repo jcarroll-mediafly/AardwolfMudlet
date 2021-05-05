@@ -2225,7 +2225,8 @@ GUI.Gauges.Health:setValue(aard.hp, aard.maxhp)
 
 -- Aylor		  1 (!(Light Relief)!)		\(!\(Light Relief\)!\)|\(!\(Serious Relief\)!\)|\(!\(Critical Care\)!\)
 -- Aylor		 20 (!(Serious Relief)!)
--- Aylor		 40 (!(Critical Care)!)   </script>
+-- Aylor		 40 (!(Critical Care)!)
+-- Aylor		 60 A Clorox Potion</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -2237,7 +2238,7 @@ GUI.Gauges.Health:setValue(aard.hp, aard.maxhp)
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^(?:\([ ]*(\d+)\)|    ) (?:\(.*?\) |)(?:Academy Healing Potion|a mysterious black pill|\(!\(Light Relief\)!\)|\(!\(Serious Relief\)!\)|\(!\(Critical Care\)!\)|White Dragon's Blood|Whispers in the Twilight|Grande Caramel Macchiato|Jade Elixir|Healer's Ballad|A Bitter Reprieve|Vigor|Salvation|Healing Touch|Tranquility's Healing Touch|-=Warm Sake=-|-=Salve of Seikenji=-|:::Angel's Breath:::|\+ Eternity \+|Little Jade Pill \[EXTREME\]|\(&gt;TouchStone&lt;\) Blue Gem Extract|-=\[ Healing Power of the Jade Dragon \]=-|\(Seekers\) Potion of Healing|\\\|/ Ogham Bark \\\|/).*\)$</string>
+					<string>^(?:\([ ]*(\d+)\)|    ) (?:\(.*?\) |)(?:Academy Healing Potion|a mysterious black pill|\(!\(Light Relief\)!\)|\(!\(Serious Relief\)!\)|\(!\(Critical Care\)!\)|White Dragon's Blood|Whispers in the Twilight|Grande Caramel Macchiato|Jade Elixir|Healer's Ballad|A Bitter Reprieve|Vigor|Salvation|Healing Touch|Tranquility's Healing Touch|-=Warm Sake=-|-=Salve of Seikenji=-|:::Angel's Breath:::|\+ Eternity \+|Little Jade Pill \[EXTREME\]|\(&gt;TouchStone&lt;\) Blue Gem Extract|-=\[ Healing Power of the Jade Dragon \]=-|\(Seekers\) Potion of Healing|\\\|/ Ogham Bark \\\|/|A Clorox potion).*\)$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
@@ -2338,7 +2339,7 @@ GUI.Gauges.Moves:setValue(aard.mv, aard.maxmv)
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^(?:\([ ]*(\d+)\)|    ) (?:\(.*?\) |)(?:FaetorAde|a Refreshing Idea|Song of the Traveller|No-Doze|Divine Refreshment|{A Minor Rejuve}|Academy Refresh Potion|\(&gt;TouchStone&lt;\) Ruby Gem Extract).*\)$</string>
+					<string>^(?:\([ ]*(\d+)\)|    ) (?:\(.*?\) |)(?:FaetorAde|a Refreshing Idea|Song of the Traveller|No-Doze|Divine Refreshment|{A Minor Rejuve}|Academy Refresh Potion|\(&gt;TouchStone&lt;\) Ruby Gem Extract|an uncooked egg).*\)$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
