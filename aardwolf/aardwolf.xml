@@ -8335,96 +8335,18 @@ if true or not GUI.Gauges then
     name = "ButtonContainer",
   }, GUI.Footer)
 
-  newBarButton({
-    name = "FountainButton",
-    offset = "0",
-    functionName = "goToFountain",
-    image = "fountain.png"
-  }, ButtonContainer)
-
-  newBarButton({
-    name = "QuestorButton",
-    offset = "12c",
-    functionName = "goToQuestor",
-    image = "quest.png"
-  }, ButtonContainer)
-
-  newBarButton({
-    name = "BankButton",
-    offset = "24c",
-    functionName = "goToBank",
-    image = "bank.png"
-  }, ButtonContainer)
-
-  newBarButton({
-    name = "ClinicButton",
-    offset = "36c",
-    functionName = "goToClinic",
-    image = "clinic.png"
-  }, ButtonContainer)
-
-  newBarButton({
-    name = "PracticeButton",
-    offset = "48c",
-    functionName = "goToPractice",
-    image = "train.png"
-  }, ButtonContainer)
-
-  newBarButton({
-    name = "MoonButton",
-    offset = "60c",
-    functionName = "resetMoons",
-    image = "moon.png"
-  }, ButtonContainer)
-
-  newBarButton({
-    name = "SellerButton",
-    offset = "72c",
-    functionName = "goToSell",
-    image = "sell.png"
-  }, ButtonContainer)
+  buttons = { 
+            { name = "FountainButton", functionName = "goToFountain", image = "fountain.png" }, { name = "QuestorButton", functionName = "goToQuestor", image = "quest.png" }, { name = "BankButton", functionName = "goToBank", image = "bank.png" },
+            { name = "ClinicButton", functionName = "goToClinic", image = "clinic.png" }, { name = "PracticeButton", functionName = "goToPractice", image = "train.png" }, { name = "MoonButton", functionName = "resetMoons", image = "moon.png" },
+            { name = "SellerButton", functionName = "goToSell", image = "sell.png" }, { name = "BuffButton", functionName = "buffUp", image = "buff.png" }, { name = "PotionStoreButton", functionName = "goToPotion", image = "potionStore.png" },
+            { name = "HealthPotButton", functionName = "popHealthPot", image = "healthPot.png" }, { name = "ManaPotButton", functionName = "popManaPot", image = "manaPot.png" }, { name = "MoveButton", functionName = "popMovePot", image = "movePot.png" },
+            { name = "CanteenButton", functionName = "popCanteen", image = "canteen.png" }
+          }
   
-  newBarButton({
-    name = "BuffButton",
-    offset = "84c",
-    functionName = "buffUp",
-    image = "buff.png"
-  }, ButtonContainer)
-
-  newBarButton({
-    name = "PotionStoreButton",
-    offset = "96c",
-    functionName = "goToPotion",
-    image = "potionStore.png"
-  }, ButtonContainer)
-
-  newBarButton({
-    name = "HealthPotButton",
-    offset = "108c",
-    functionName = "popHealthPot",
-    image = "healthPot.png"
-  }, ButtonContainer)
-  
-  newBarButton({
-    name = "ManaPotButton",
-    offset = "120c",
-    functionName = "popManaPot",
-    image = "manaPot.png"
-  }, ButtonContainer)
-  
-  newBarButton({
-    name = "MoveButton",
-    offset = "132c",
-    functionName = "popMovePot",
-    image = "movePot.png"
-  }, ButtonContainer)
-  
-  newBarButton({
-    name = "CanteenButton",
-    offset = "144c",
-    functionName = "popCanteen",
-    image = "canteen.png"
-  }, ButtonContainer)
+  for i,v in ipairs(buttons) do 
+    v.offset = tostring((i - 1) * 12).."c"
+    newBarButton(v, ButtonContainer)
+  end
 
   GUI.Footer.StatusBar = Geyser.HBox:new({
     name = "GUI.Footer.StatusBar",
