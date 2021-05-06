@@ -8392,31 +8392,38 @@ if true or not GUI.Gauges then
   }, ButtonContainer)
 
   newBarButton({
-    name = "HealthPotButton",
+    name = "PotionStoreButton",
     offset = "96c",
+    functionName = "goToPotion",
+    image = "potionStore.png"
+  }, ButtonContainer)
+
+  newBarButton({
+    name = "HealthPotButton",
+    offset = "108c",
     functionName = "popHealthPot",
     image = "healthPot.png"
   }, ButtonContainer)
   
   newBarButton({
     name = "ManaPotButton",
-    offset = "108c",
+    offset = "120c",
     functionName = "popManaPot",
     image = "manaPot.png"
   }, ButtonContainer)
   
   newBarButton({
     name = "MoveButton",
-    offset = "120c",
+    offset = "132c",
     functionName = "popMovePot",
     image = "movePot.png"
   }, ButtonContainer)
-
+  
   newBarButton({
-    name = "PotionStoreButton",
-    offset = "132c",
-    functionName = "goToPotion",
-    image = "potionStore.png"
+    name = "CanteenButton",
+    offset = "144c",
+    functionName = "popCanteen",
+    image = "canteen.png"
   }, ButtonContainer)
 
   GUI.Footer.StatusBar = Geyser.HBox:new({
@@ -8714,6 +8721,11 @@ function popMovePot()
  end
 end
 
+function popCanteen()
+  --to change the canteen used, change "config" in Scripts section.
+  send("get '"..aard.config["canteen"].."' "..aard.config["pbag"].."; drink '"..aard.config["canteen"].."'; put '"..aard.config["canteen"].."' "..aard.config["pbag"],true)
+end
+
 function goToPotion()
   if gmcp.room.info.num ~= 32476 then
     gotoRoom(32476)
@@ -8890,8 +8902,7 @@ end</script>
 			<Key isActive="yes" isFolder="no">
 				<name>Drink</name>
 				<packageName></packageName>
-				<script>--to change the canteen used, change "config" in Scripts section.
-send("get '"..aard.config["canteen"].."' "..aard.config["pbag"].."; drink '"..aard.config["canteen"].."'; put '"..aard.config["canteen"].."' "..aard.config["pbag"],true)</script>
+				<script>popCanteen()</script>
 				<command></command>
 				<keyCode>47</keyCode>
 				<keyModifier>570425344</keyModifier>
