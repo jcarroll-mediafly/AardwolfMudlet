@@ -8336,11 +8336,12 @@ if true or not GUI.Gauges then
   }, GUI.Footer)
 
   buttons = { 
-            { name = "FountainButton", functionName = "goToFountain", image = "fountain.png" }, { name = "QuestorButton", functionName = "goToQuestor", image = "quest.png" }, { name = "BankButton", functionName = "goToBank", image = "bank.png" },
-            { name = "ClinicButton", functionName = "goToClinic", image = "clinic.png" }, { name = "PracticeButton", functionName = "goToPractice", image = "train.png" }, { name = "MoonButton", functionName = "resetMoons", image = "moon.png" },
-            { name = "SellerButton", functionName = "goToSell", image = "sell.png" }, { name = "BuffButton", functionName = "buffUp", image = "buff.png" }, { name = "PotionStoreButton", functionName = "goToPotion", image = "potionStore.png" },
-            { name = "HealthPotButton", functionName = "popHealthPot", image = "healthPot.png" }, { name = "ManaPotButton", functionName = "popManaPot", image = "manaPot.png" }, { name = "MoveButton", functionName = "popMovePot", image = "movePot.png" },
-            { name = "CanteenButton", functionName = "popCanteen", image = "canteen.png" }
+            { name = "FountainButton", functionName = "goToFountain", image = "fountain.png" }, { name = "ClinicButton", functionName = "goToClinic", image = "clinic.png" },
+            { name = "BankButton", functionName = "goToBank", image = "bank.png" }, { name = "SellerButton", functionName = "goToSell", image = "sell.png" }, { name = "PotionStoreButton", functionName = "goToPotion", image = "potionStore.png" },
+            { name = "QuestorButton", functionName = "goToQuestor", image = "quest.png" }, { name = "PracticeButton", functionName = "goToPractice", image = "train.png" }, 
+            { name = "MoonButton", functionName = "resetMoons", image = "moon.png" },  { name = "BuffButton", functionName = "buffUp", image = "buff.png" },
+            { name = "HealthPotButton", functionName = "popHealthPot", image = "healthPot.png" }, { name = "ManaPotButton", functionName = "popManaPot", image = "manaPot.png" }, 
+            { name = "MoveButton", functionName = "popMovePot", image = "movePot.png" }, { name = "CanteenButton", functionName = "popCanteen", image = "canteen.png" }
           }
   
   for i,v in ipairs(buttons) do 
@@ -9180,7 +9181,7 @@ aard.other = true</script>
 				<Key isActive="yes" isFolder="no">
 					<name>Cmd + 2</name>
 					<packageName></packageName>
-					<script>goToQuestor()</script>
+					<script>goToClinic()</script>
 					<command></command>
 					<keyCode>50</keyCode>
 					<keyModifier>67108864</keyModifier>
@@ -9196,7 +9197,7 @@ aard.other = true</script>
 				<Key isActive="yes" isFolder="no">
 					<name>Cmd + 4</name>
 					<packageName></packageName>
-					<script>goToClinic()</script>
+					<script>goToSell()</script>
 					<command></command>
 					<keyCode>52</keyCode>
 					<keyModifier>67108864</keyModifier>
@@ -9204,7 +9205,7 @@ aard.other = true</script>
 				<Key isActive="yes" isFolder="no">
 					<name>Cmd + 5</name>
 					<packageName></packageName>
-					<script>goToPractice()</script>
+					<script>goToPotion()</script>
 					<command></command>
 					<keyCode>53</keyCode>
 					<keyModifier>67108864</keyModifier>
@@ -9212,7 +9213,7 @@ aard.other = true</script>
 				<Key isActive="yes" isFolder="no">
 					<name>Cmd + 6</name>
 					<packageName></packageName>
-					<script>resetMoons()</script>
+					<script>goToQuestor()</script>
 					<command></command>
 					<keyCode>54</keyCode>
 					<keyModifier>67108864</keyModifier>
@@ -9220,7 +9221,7 @@ aard.other = true</script>
 				<Key isActive="yes" isFolder="no">
 					<name>Cmd + 7</name>
 					<packageName></packageName>
-					<script>goToSell()</script>
+					<script>goToPractice()</script>
 					<command></command>
 					<keyCode>55</keyCode>
 					<keyModifier>67108864</keyModifier>
