@@ -9226,6 +9226,14 @@ aard.other = true</script>
 					<keyCode>55</keyCode>
 					<keyModifier>67108864</keyModifier>
 				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Cmd + 8</name>
+					<packageName></packageName>
+					<script>resetMoons()</script>
+					<command></command>
+					<keyCode>56</keyCode>
+					<keyModifier>67108864</keyModifier>
+				</Key>
 			</KeyGroup>
 		</KeyGroup>
 	</KeyPackage>
