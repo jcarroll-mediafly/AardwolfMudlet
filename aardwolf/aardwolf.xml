@@ -2445,22 +2445,21 @@ end</script>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>daily blessing</name>
 				<script>--18 Apr 2019 12:58:55
---echo("\n input date: "..matches[2])
---lastblessing="18 Apr 2019 12:58:55"
-aard.timerDaily = datetime:parse(matches[2], "%d %b %Y %H:%M:%S", true)
-aard.timerDaily = aard.timerDaily - 3600--workaround bug: https://github.com/Mudlet/Mudlet/issues/2514
---echo("\n epoch date: ")
---display(aard.timerDaily)
 
---echo("\n epoch date, difference from now: ")
---display(shms(getEpoch()-aard.timerDaily, true))
+-- This date time string is aard time doesn't have timezone and needs to be taken into consideration
+local dt = datetime:parse(matches[2], "%d %b %Y %H:%M:%S", false)
+dt.isdst = os.date("*t").isdst
+aard.timerDaily = os.time(dt)
 
-aard.timerDaily = aard.timerDaily + (aard.config["tdiff"]*60*60) + 82800--82800 = 23 hours which is the time between blessings
---echo("\n output date: ")--1555621135
---display(aard.tdiff*60*60)
---display(aard.timerDaily)
+-- Adjust the epoch for your timezone
+aard.timerDaily = aard.timerDaily + (aard.config["tdiff"]*3600)
+
+-- Now this will be the correct epoch for blessing reset
+aard.timerDaily = aard.timerDaily + 82800--82800 = 23 hours which is the time between blessings
+
+display(aard.timerDaily)
 onTick()
---aard.qTimeNOexp()</script>
+</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
