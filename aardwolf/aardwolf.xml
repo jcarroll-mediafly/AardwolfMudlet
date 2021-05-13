@@ -8181,10 +8181,10 @@ end</script>
 			aard.qtime = 1
 		end
   end
-  if math.floor((aard.timerDaily-math.floor(getEpoch()+0.5))/60) &lt;= 0 then
+  if math.floor(aard.timerDaily-math.floor(getEpoch()+0.5)) &lt;= 0 then
   	aard.dtime = 0--its daily blessing time
   else
-		local myDT = math.floor((aard.timerDaily-getEpoch())/60)
+		local myDT = math.floor(aard.timerDaily-getEpoch())
 		--local myDT = aard.timerDaily-getEpoch()
 		if myDT &gt; 0 then
   		aard.dtime = myDT
@@ -8370,7 +8370,9 @@ if true or not GUI.Gauges then
 		name = "Info",
 		unit = "",
 		format = function (self, value, maxValue)
-			return [[&lt;center&gt;Quest: ]]..aard.qtime..[[ Blessing: ]]..aard.dtime..[[ Status: ]]..(aard.pos or 0)..[[&lt;/center&gt;]]
+      local hour = math.floor( aard.dtime / 3600 )
+      local min = math.floor( aard.dtime % 3600 / 60 )
+			return [[&lt;center&gt;Quest: ]]..aard.qtime..[[ Blessing: ]]..hour..":"..min..[[ Status: ]]..(aard.pos or 0)..[[&lt;/center&gt;]]
 		end,
 		color = "QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #000, stop: 1 #000)",
 	}, GUI.Footer.StatusBar)
