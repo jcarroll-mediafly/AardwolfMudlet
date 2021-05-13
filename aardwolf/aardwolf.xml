@@ -8334,16 +8334,16 @@ if true or not GUI.Gauges then
     name = "ButtonContainer",
   }, GUI.Footer)
 
-  buttons = { 
+  buttons = {
             { name = "FountainButton", functionName = "goToFountain", image = "fountain.png" }, { name = "ClinicButton", functionName = "goToClinic", image = "clinic.png" },
             { name = "BankButton", functionName = "goToBank", image = "bank.png" }, { name = "SellerButton", functionName = "goToSell", image = "sell.png" }, { name = "PotionStoreButton", functionName = "goToPotion", image = "potionStore.png" },
-            { name = "QuestorButton", functionName = "goToQuestor", image = "quest.png" }, { name = "PracticeButton", functionName = "goToPractice", image = "train.png" }, 
+            { name = "QuestorButton", functionName = "goToQuestor", image = "quest.png" }, { name = "PracticeButton", functionName = "goToPractice", image = "train.png" },
             { name = "MoonButton", functionName = "resetMoons", image = "moon.png" },  { name = "BuffButton", functionName = "buffUp", image = "buff.png" },
-            { name = "HealthPotButton", functionName = "popHealthPot", image = "healthPot.png" }, { name = "ManaPotButton", functionName = "popManaPot", image = "manaPot.png" }, 
+            { name = "HealthPotButton", functionName = "popHealthPot", image = "healthPot.png" }, { name = "ManaPotButton", functionName = "popManaPot", image = "manaPot.png" },
             { name = "MoveButton", functionName = "popMovePot", image = "movePot.png" }, { name = "CanteenButton", functionName = "popCanteen", image = "canteen.png" }
           }
-  
-  for i,v in ipairs(buttons) do 
+
+  for i,v in ipairs(buttons) do
     v.offset = tostring((i - 1) * 12).."c"
     newBarButton(v, ButtonContainer)
   end
@@ -8370,8 +8370,8 @@ if true or not GUI.Gauges then
 		name = "Info",
 		unit = "",
 		format = function (self, value, maxValue)
-      local hour = math.floor( aard.dtime / 3600 )
-      local min = math.floor( aard.dtime % 3600 / 60 )
+			local hour = math.floor( aard.dtime / 3600 )
+			local min = math.floor( aard.dtime % 3600 / 60 )
 			return [[&lt;center&gt;Quest: ]]..aard.qtime..[[ Blessing: ]]..hour..":"..min..[[ Status: ]]..(aard.pos or 0)..[[&lt;/center&gt;]]
 		end,
 		color = "QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #000, stop: 1 #000)",
@@ -8625,7 +8625,7 @@ function popHealthPot()
   end
 end
 
-function popManaPot() 
+function popManaPot()
   if aard.mp / aard.maxmp &lt; .9 then
     send("get '"..aard.config["mpot"].."' "..aard.config["pbag"]..";quaf '"..aard.config["mpot"].."'",true)
     if aard.spot &gt; 0 then
