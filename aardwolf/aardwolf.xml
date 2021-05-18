@@ -8883,17 +8883,17 @@ end</script>
 				<keyModifier>536870912</keyModifier>
 			</Key>
 			<Key isActive="yes" isFolder="no">
-				<name>7 score</name>
+				<name>7 portal</name>
 				<packageName></packageName>
-				<script>send("score",true)</script>
+				<script>send(aard.config["port"])</script>
 				<command></command>
 				<keyCode>55</keyCode>
 				<keyModifier>536870912</keyModifier>
 			</Key>
 			<Key isActive="yes" isFolder="no">
-				<name>1 portal</name>
+				<name>1 score</name>
 				<packageName></packageName>
-				<script>send(aard.config["port"])</script>
+				<script>send("score",true)</script>
 				<command></command>
 				<keyCode>49</keyCode>
 				<keyModifier>536870912</keyModifier>
