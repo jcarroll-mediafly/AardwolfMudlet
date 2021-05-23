@@ -2457,7 +2457,7 @@ aard.timerDaily = aard.timerDaily + (aard.config["tdiff"]*3600)
 -- Now this will be the correct epoch for blessing reset
 aard.timerDaily = aard.timerDaily + 82800--82800 = 23 hours which is the time between blessings
 
-display(aard.timerDaily)
+-- display(aard.timerDaily)
 onTick()
 </script>
 				<triggerType>0</triggerType>
