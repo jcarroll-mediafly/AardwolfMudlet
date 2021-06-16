@@ -8582,7 +8582,7 @@ function goToBank()
     gotoRoom(32469)
   end
   send("deposit all")
-  send("withdraw 8000")
+  send("withdraw 50000")
 end
 
 function goToClinic()
