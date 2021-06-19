@@ -2398,7 +2398,7 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>noexp off</name>
-				<script>aard.noexp = ""
+				<script>aard.noexp = false
 aard.qTimeNOexp()</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -2419,8 +2419,8 @@ aard.qTimeNOexp()</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>noexp on</name>
-				<script>if aard.noexp ~= " *NO EXP*" then
-  aard.noexp = " *NO EXP*"
+				<script>if aard.noexp == false then
+  aard.noexp = true
   aard.qTimeNOexp()
 end</script>
 				<triggerType>0</triggerType>
@@ -3374,8 +3374,8 @@ if matches[2] then
 else
 	aard.cpLevel = tonumber(gmcp.char.status.level)
 end
-if aard.noexp == " *NO EXP*" and tonumber(gmcp.char.status.level) &lt;= aard.cpLevel and tonumber(gmcp.char.status.level) &lt;= aard.config["cplvl"] then
-  aard.noexp = ""
+
+if aard.noexp == false and tonumber(gmcp.char.status.level) &gt;= aard.cpLevel and tonumber(gmcp.char.status.level) &lt;= aard.config["cplvl"] then
   aard.qTimeNOexp()
 	send("noexp")--turn noexp back on
 end</script>
@@ -4139,7 +4139,6 @@ guiLoad()</script>
 --aard.config["debuff1"]="marbu",
 --aard.config["debuff2"]="dirt",
 --aard.config["cplvl"]=150,
---aard.config["cpexp"]=700,
 --aard.config["group"]=1,
 --aard.config["tdiff"]=-3,
 --aard.config["speak"]="false",
@@ -4212,10 +4211,6 @@ echo("\n")
 
 decho("  &lt;51,102,255&gt;- &lt;192,192,192&gt;CP Level Until: ") setFgColor(51,102,255)
 echoLink(aard.config["cplvl"], "printCmdLine'vconfig cplvl '", "Click to set the level to CP Level until.", true)
-
-decho("  &lt;51,102,255&gt;- &lt;192,192,192&gt;CP Level noexp limit: ") setFgColor(51,102,255)
-echoLink(aard.config["cpexp"], "printCmdLine'vconfig cpexp '", "Click to set the CP Level noexp toggle amount.", true)
-echo("\n")
 
 decho("  &lt;51,102,255&gt;- &lt;192,192,192&gt;Group Frame Format: ") setFgColor(51,102,255)
 echoLink(aard.config["group"], "printCmdLine'vconfig group '", "Click to set the Group Frame Format until.", true)
@@ -4412,7 +4407,7 @@ aard.dtime = aard.dtime or 0
 aard.timerQuest = aard.timerQuest or 0
 aard.timerDaily = aard.timerDaily or 0
 aard.tnlmax = aard.tnlmax or 1000
-aard.noexp = aard.noexp or ""
+aard.noexp = aard.noexp or false
 aard.name = aard.name or ""
 aard.gindex = aard.gindex or 0
 aard.ename = aard.ename or ""
@@ -4579,7 +4574,6 @@ aard.configDefault = {
 ["debuff1"]="marbu",
 ["debuff2"]="dirt",
 ["cplvl"]=150,
-["cpexp"]=700,
 ["group"]=1,
 ["tdiff"]=-3,
 ["speak"]="false", -- Stringly typed because of user input in vconfig
@@ -4590,7 +4584,6 @@ aard.configDefault = {
 --This is to get in 1 CP every level, without mistakenly leveling +2 levels during a CP.
 --The default is assumed CP leveling
 --aard.cplvl = 150--set to 0 to disable
---aard.cpexp = 700
 
 --group window format group: 0=normal, 1=compact, 2=compact minimal
 
@@ -5647,6 +5640,8 @@ function onInGame()
 
 	--sendGMCP("gmcpchannels on") -- ommit channels from main output
 
+  tempTimer(3, function () send("noexp", false) end)
+  tempTimer(4, function () send("noexp", false) end)
 
 	send("tags map on",false)-- enable maptags so we can capture minimap.
 	send("map",false)-- sends the command "map" to the mud without echoing to the screen.
@@ -7684,8 +7679,7 @@ end
   aard.level = gmcp.char.status.level
 
 	if aard.cpLevel then
-  	if aard.noexp == "" and tonumber(gmcp.char.status.level) &gt; tonumber(aard.cpLevel) and tonumber(aard.config["cpexp"]) &gt; tonumber(aard.tnl) and tonumber(gmcp.char.status.level) &lt;= tonumber(aard.config["cplvl"]) then
-      aard.noexp = " *NO EXP*"
+  	if aard.noexp == false and tonumber(gmcp.char.status.level) &gt;= tonumber(aard.cpLevel) and tonumber(gmcp.char.status.level) &lt;= tonumber(aard.config["cplvl"]) then
       aard.qTimeNOexp()
   		send("noexp")
   	end
