@@ -8648,7 +8648,23 @@ function goToPotion()
   if gmcp.room.info.num ~= 32476 then
     gotoRoom(32476)
   end
-end</script>
+  local hCount = 10 - aard.hpot
+  if hCount &gt; 0 then
+    send("buy "..hCount.." "..aard.config["hpot"].."; put all."..aard.config["hpot"].." in bag; look in bag")    
+  end  
+  tempTimer(4,function () goToManaPotion() end)
+end
+
+function goToManaPotion()
+  if gmcp.room.info.num ~= 49373 then
+    gotoRoom(49373)
+  end
+  local mCount = 10 - aard.spot
+  if mCount &gt; 0 then
+    send("buy "..mCount.." "..aard.config["mpot"].."; put all."..aard.config["mpot"].." in bag; look in bag")
+  end
+end
+</script>
 					<eventHandlerList />
 				</Script>
 			</ScriptGroup>
