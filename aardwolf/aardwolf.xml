@@ -8610,7 +8610,7 @@ function buffUp()
 end
 
 function popHealthPot()
-  if aard.hp / aard.maxhp &lt; .9 then
+  if aard.hp / aard.maxhp &lt; .95 then
     send("get '"..aard.config["hpot"].."' "..aard.config["pbag"]..";quaf '"..aard.config["hpot"].."'",true)
     if aard.hpot &gt; 0 then
       aard.hpot = aard.hpot -1
@@ -8620,7 +8620,7 @@ function popHealthPot()
 end
 
 function popManaPot()
-  if aard.mp / aard.maxmp &lt; .9 then
+  if aard.mp / aard.maxmp &lt; .95 then
     send("get '"..aard.config["mpot"].."' "..aard.config["pbag"]..";quaf '"..aard.config["mpot"].."'",true)
     if aard.spot &gt; 0 then
     	aard.spot = aard.spot -1
@@ -8630,7 +8630,7 @@ function popManaPot()
 end
 
 function popMovePot()
-  if aard.mv / aard.maxmv &lt; .9 then
+  if aard.mv / aard.maxmv &lt; .95 then
     send("get '"..aard.config["vpot"].."' "..aard.config["pbag"]..";quaf '"..aard.config["vpot"].."'",true)
     if aard.mpot &gt; 0 then
     	aard.mpot = aard.mpot -1
