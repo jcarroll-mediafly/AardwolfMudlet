@@ -8334,7 +8334,8 @@ if true or not GUI.Gauges then
             { name = "QuestorButton", functionName = "goToQuestor", image = "quest.png" }, { name = "PracticeButton", functionName = "goToPractice", image = "train.png" },
             { name = "MoonButton", functionName = "resetMoons", image = "moon.png" },  { name = "BuffButton", functionName = "buffUp", image = "buff.png" },
             { name = "HealthPotButton", functionName = "popHealthPot", image = "healthPot.png" }, { name = "ManaPotButton", functionName = "popManaPot", image = "manaPot.png" },
-            { name = "MoveButton", functionName = "popMovePot", image = "movePot.png" }, { name = "CanteenButton", functionName = "popCanteen", image = "canteen.png" }
+            { name = "MoveButton", functionName = "popMovePot", image = "movePot.png" }, { name = "CanteenButton", functionName = "popCanteen", image = "canteen.png" },
+            { name = "PortalButton", functionName = "enterPortal", image = "portal.png" }
           }
 
   for i,v in ipairs(buttons) do
@@ -8663,6 +8664,10 @@ function goToManaPotion()
   if mCount &gt; 0 then
     send("buy "..mCount.." "..aard.config["mpot"].."; put all."..aard.config["mpot"].." in bag; look in bag")
   end
+end
+
+function enterPortal()
+  send(aard.config["port"])
 end
 </script>
 					<eventHandlerList />
